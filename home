@@ -6,20 +6,22 @@
     <title>Omori Lab. 予約受付</title>
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", serif;
             max-width: 650px;
             margin: 0 auto;
             padding: 20px;
-            color: #333;
-            line-height: 1.6;
+            background-color: #0d0d0d;
+            color: #d1d1d1;
+            line-height: 1.7;
         }
         
         .intro-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #2196F3;
+            background-color: #1a0505;
+            border-left: 4px solid #8b0000;
             padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
+            margin-bottom: 30px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
         }
         
         .intro-box p {
@@ -29,15 +31,24 @@
         .intro-box p:last-child {
             margin-bottom: 0;
         }
+
+        .highlight-title {
+            color: #ff3333;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #8b0000;
+        }
         
         .date-header {
-            font-size: 1.25em;
+            font-size: 1.3em;
             font-weight: bold;
-            border-bottom: 2px solid #2196F3;
+            border-bottom: 1px solid #8b0000;
             padding-bottom: 5px;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #1976D2;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #ff2222;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
         }
         
         .slot-list {
@@ -50,40 +61,51 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            background-color: #141414;
+            border: 1px solid #330000;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .slot-item:hover {
+            border-color: #8b0000;
+            box-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
         }
         
         .time-label {
             font-weight: bold;
             font-size: 1em;
+            color: #cccccc;
+            letter-spacing: 1px;
         }
         
         .btn-reserve {
             display: inline-block;
-            background-color: #2196F3;
-            color: #ffffff;
+            background-color: #5a0000;
+            color: #ffcccc;
             text-decoration: none;
             padding: 8px 16px;
-            border-radius: 4px;
+            border: 1px solid #8b0000;
+            border-radius: 3px;
             font-weight: bold;
             font-size: 0.9em;
-            transition: background-color 0.2s;
+            letter-spacing: 1px;
+            transition: all 0.2s;
         }
         
         .btn-reserve:hover {
-            background-color: #0b7dda;
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 10px #ff0000;
         }
     </style>
 </head>
 <body>
 
     <div class="intro-box">
-        <p><strong>Omori Lab.へようこそ。</strong></p>
+        <p><strong class="highlight-title">Omori Lab.へようこそ。</strong></p>
         <p>Omori Lab.では1時間ごとに5枠程度の予約枠を設けています。</p>
         <p>また予約ができなかったかたも、当日整理券がございますが、予約をぜひご利用ください。</p>
     </div>
