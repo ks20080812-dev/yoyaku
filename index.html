@@ -38,6 +38,1070 @@
             letter-spacing: 2px;
             text-shadow: 0 0 5px #8b0000;
         }
+
+        Gemini との会話
+githubで新しいWebページを作りたい
+
+GitHubでWebサイトを公開する最も簡単で一般的な方法は、無料のGitHub Pages機能を使うことです。静的なサイト（HTML/CSS/JavaScript）を即座に公開できます。
+
+1
+リポジトリを作成する
+GitHubにログインし、画面右上の「+」アイコンから New repository を選択します。
+
+Repository name に任意の名前（例: my-website）を入力します。
+
+Public（公開）を選択します（※無料プランでページ公開する場合、Publicである必要があります）。
+
+「Add a README file」にチェックを入れて Create repository をクリックします。
+
+2
+Webページのファイル（index.html）を作る
+作成したリポジトリのページで、Add file ＞ Create new file をクリックします。
+
+ファイル名に index.html と入力します。
+
+エディタ部分に以下のサンプルコードを貼り付けます。
+
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>私のWebサイト</title>
+</head>
+<body>
+    <h1>Hello, GitHub Pages!</h1>
+    <p>はじめてのWebページへようこそ。</p>
+</body>
+</html>
+画面下の Commit changes... をクリックし、再度 Commit changes を押して保存します。
+
+3
+GitHub Pages を有効化して公開する
+リポジトリ上部メニューの Settings（設定）タブを開きます。
+
+左サイドメニューの Pages を選択します。
+
+Build and deployment の Source にある Deploy from a branch を選択します。
+
+Branch の項目で main（または master）を選択し、フォルダは / (root) のまま Save をクリックします。
+
+4
+公開されたURLを確認する
+数分待った後、Settings ＞ Pages の画面をリロードすると、上部に公開URL（例: https://<ユーザー名>.github.io/<リポジトリ名>/）が表示されます。そのリンクにアクセスすると、作成したページが確認できます。
+
+そのサイトに、文化祭での予約フォーム（googleフォーム）に飛ぶためのWebリンクを時間帯ごと（1時間ごとに）貼りたい
+
+GitHub Pagesで作成したindex.htmlに、文化祭の予約用Googleフォームへのリンクを1時間ごとに見やすく配置するコード例をご紹介します。
+
+1
+index.html を編集する
+GitHubのリポジトリ画面で index.html をクリックします。
+
+右上の鉛筆アイコン（Edit this file）をクリックします。
+
+2
+HTMLコードを書き換える
+既存の内容を消して、以下のサンプルコードを貼り付けます。
+※ https://forms.gle/... の部分を、実際のGoogleフォームの共有URLに置き換えてください。
+
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文化祭 タイムスケジュール＆事前予約</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .time-slot {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+        .time-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .btn-link {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-link:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>文化祭 予約受付</h1>
+    <p>ご希望の時間帯を選択して、予約フォーム（Googleフォーム）からお申し込みください。</p>
+
+    <div class="time-slot">
+        <div class="time-title">10:00 ～ 11:00</div>
+        <a href="https://forms.gle/YOUR_FORM_URL_1" target="_blank" class="btn-link">予約する</a>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-title">11:00 ～ 12:00</div>
+        <a href="https://forms.gle/YOUR_FORM_URL_2" target="_blank" class="btn-link">予約する</a>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-title">12:00 ～ 13:00</div>
+        <a href="https://forms.gle/YOUR_FORM_URL_3" target="_blank" class="btn-link">予約する</a>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-title">13:00 ～ 14:00</div>
+        <a href="https://forms.gle/YOUR_FORM_URL_4" target="_blank" class="btn-link">予約する</a>
+    </div>
+
+    <div class="time-slot">
+        <div class="time-title">14:00 ～ 15:00</div>
+        <a href="https://forms.gle/YOUR_FORM_URL_5" target="_blank" class="btn-link">予約する</a>
+    </div>
+
+</body>
+</html>
+3
+変更を保存する
+画面右上の Commit changes... をクリックします。
+
+再度 Commit changes を押して保存します。
+
+数分待つと、GitHub Pages上のWebサイトが新しいデザインとリンクに更新されます。
+
+こんな感じの見え方にしたい
+
+
+
+Omori Lab.へようこそ。
+
+Omori Lab.では1時間ごとに5枠程度の予約枠を設けています。
+
+また予約ができなかったかたも、当日整理券がございますが、予約をぜひご利用ください。
+
+
+
+予約フォーム一覧　8月26日
+
+【リンク】（11:00~12:00）
+
+【リンク】（12:00~12:50）
+
+【リンク】（13:10~14:00）
+
+【リンク】（14:00~14:50）
+
+予約フォーム一覧　8月27日
+
+【リンク】（9:00~10:00）
+
+【リンク】（10:00~11:05）
+
+【リンク】（11:25~12:10）
+
+【リンク】（12:10~12:55)
+
+【リンク】（12:55~13:30)
+
+テキストの構成と日付・時間帯をそのまま反映し、スマートフォンからでも見やすく整えたHTMLコードを作成しました。
+
+index.html の内容をすべて消して、以下のコードに書き換えてください。
+※ [https://forms.gle/](https://forms.gle/)〜 の部分をご自身のGoogleフォームのURLに変更してください。
+
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omori Lab. 予約受付</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .intro-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .intro-box p {
+            margin: 0 0 10px 0;
+        }
+        
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .date-header {
+            font-size: 1.25em;
+            font-weight: bold;
+            border-bottom: 2px solid #2196F3;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #1976D2;
+        }
+        
+        .slot-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .slot-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .time-label {
+            font-weight: bold;
+            font-size: 1em;
+        }
+        
+        .btn-reserve {
+            display: inline-block;
+            background-color: #2196F3;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-reserve:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="intro-box">
+        <p><strong>Omori Lab.へようこそ。</strong></p>
+        <p>Omori Lab.では1時間ごとに5枠程度の予約枠を設けています。</p>
+        <p>また予約ができなかったかたも、当日整理券がございますが、予約をぜひご利用ください。</p>
+    </div>
+
+    <div class="date-header">予約フォーム一覧 8月26日</div>
+    <ul class="slot-list">
+        <li class="slot-item">
+            <span class="time-label">11:00 ～ 12:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_1" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:00 ～ 12:50</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_2" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">13:10 ～ 14:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_3" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">14:00 ～ 14:50</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_4" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+    </ul>
+
+    <div class="date-header">予約フォーム一覧 8月27日</div>
+    <ul class="slot-list">
+        <li class="slot-item">
+            <span class="time-label">9:00 ～ 10:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_1" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">10:00 ～ 11:05</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_2" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">11:25 ～ 12:10</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_3" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:10 ～ 12:55</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_4" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:55 ～ 13:30</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_5" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+    </ul>
+
+</body>
+</html>
+おすすめの調整ポイント
+
+全体的に爽やかな青色ベースのデザインに調整していますが、研究室やクラスのテーマカラーに合わせて色味（#2196F3 の部分）を変えることも可能です。
+
+枠が埋まった場合、該当する時間帯の <a ...> の部分を <span class="btn-closed">受付終了</span> のように書き換えることで、受付終了表示にする運用もできます。
+
+ホラーっぽく、赤文字と黒背景にして欲しいのと、パブリックに公開するリンクはどこにあるのか教えて欲しい
+
+1. ホラー風デザイン（黒背景・赤文字）のHTMLコード
+背景を漆黒にし、フォントやグラデーション、シャドウ効果で少し不気味な赤色を際立たせたデザインに仕上げました。
+
+index.html の内容を以下に差し替えて更新（Commit changes）してください。
+
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omori Lab. 予約受付</title>
+    <style>
+        body {
+            font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", serif;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: #d1d1d1;
+            line-height: 1.7;
+        }
+        
+        .intro-box {
+            background-color: #1a0505;
+            border-left: 4px solid #8b0000;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        
+        .intro-box p {
+            margin: 0 0 10px 0;
+        }
+        
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-title {
+            color: #ff3333;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #8b0000;
+        }
+        
+        .date-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            border-bottom: 1px solid #8b0000;
+            padding-bottom: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #ff2222;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+        }
+        
+        .slot-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .slot-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            background-color: #141414;
+            border: 1px solid #330000;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .slot-item:hover {
+            border-color: #8b0000;
+            box-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+        }
+        
+        .time-label {
+            font-weight: bold;
+            font-size: 1em;
+            color: #cccccc;
+            letter-spacing: 1px;
+        }
+        
+        .btn-reserve {
+            display: inline-block;
+            background-color: #5a0000;
+            color: #ffcccc;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #8b0000;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .btn-reserve:hover {
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 10px #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="intro-box">
+        <p><strong class="highlight-title">Omori Lab.へようこそ。</strong></p>
+        <p>Omori Lab.では1時間ごとに5枠程度の予約枠を設けています。</p>
+        <p>また予約ができなかったかたも、当日整理券がございますが、予約をぜひご利用ください。</p>
+    </div>
+
+    <div class="date-header">予約フォーム一覧 8月26日</div>
+    <ul class="slot-list">
+        <li class="slot-item">
+            <span class="time-label">11:00 ～ 12:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_1" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:00 ～ 12:50</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_2" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">13:10 ～ 14:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_3" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">14:00 ～ 14:50</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_4" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+    </ul>
+
+    <div class="date-header">予約フォーム一覧 8月27日</div>
+    <ul class="slot-list">
+        <li class="slot-item">
+            <span class="time-label">9:00 ～ 10:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_1" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">10:00 ～ 11:05</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_2" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">11:25 ～ 12:10</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_3" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:10 ～ 12:55</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_4" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:55 ～ 13:30</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_5" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+    </ul>
+
+</body>
+</html>
+2. 公開用リンク（URL）の確認場所
+一般公開用のURL（誰でもアクセスできるリンク）は以下の場所で確認できます。
+
+1
+リポジトリの Settings を開く
+GitHubのリポジトリ画面上部にある Settings（歯車アイコン）タブをクリックします。
+
+2
+Pages メニューを選択する
+左側のサイドメニューの中にある Pages をクリックします。
+
+3
+URLを確認する
+画面の一番上に、緑色のチェックマークとともに 「Your site is live at ...」 というメッセージが表示されています。
+
+そこに書かれているURL（例: https://<アカウント名>.github.io/<リポジトリ名>/）が、公開用のWebサイトのリンクです。
+
+※ファイルを更新した直後は、反映までに1〜3分ほど時間がかかる場合があります。
+
+ない😭
+
+スクショを見せてくれてありがとうございます！状況がとてもよく分かりました。
+
+公開用URLが表示されていない理由は、ブランチ（Branch）の設定が「None」のまま保存されていないからです。
+
+以下の手順で1回だけ設定を変更すれば、すぐにURLが発行されます！
+
+1
+Branch（ブランチ）を設定する
+画面中央にある Branch の下の None と書かれたプルダウンをクリックします。
+
+表示されたリストから main（または master）を選択します。
+
+2
+設定を保存する
+そのすぐ右隣にある Save ボタンをクリックします。
+
+3
+1〜2分待って再読み込みする
+保存すると画面が自動的に切り替わります。
+
+1〜2分ほど待ってから、ブラウザの更新ボタンを押してページを再読み込みしてください。
+
+画面の一番上に青色または緑色の枠が表示され、「Your site is live at https://ks20080812-dev.github.io/yoyaku/」 というリンクが生成されます！
+
+※この [https://ks20080812-dev.github.io/yoyaku/](https://ks20080812-dev.github.io/yoyaku/) が、今回の文化祭予約サイトのパブリック（全体公開）用リンクになります！
+
+Not Found になるんだけど
+
+原因がわかりました！
+
+スクショ（1枚目）を見ると、ファイル名が home になっています。GitHub Pagesは index.html という名前のファイルを探しに行って表示する仕組みになっているため、home だと「ファイルが見つからない（404 Not Found）」になってしまいます。
+
+ファイル名を index.html に変更すればすぐに解決します！
+
+1
+ファイル名を変更する（リネーム）
+リポジトリの画面で home というファイルをクリックして開きます。
+
+右上の 鉛筆マーク（Edit this file） または 「…」 から Edit をクリックします。
+
+ファイル名の入力欄にある home を消して、半角小文字で index.html と入力します。
+
+2
+変更を保存する
+右上の Commit changes... を押して保存します。
+
+3
+ページを再確認する
+保存後、1〜2分ほど待ってから 再び [https://ks20080812-dev.github.io/yoyaku/](https://ks20080812-dev.github.io/yoyaku/) にアクセス（または更新）してください。
+
+先ほどの黒背景×赤文字のホラー風Webサイトが正しく表示されます！
+
+間にはいるように、｢下のボタンより、当ラボのコンセプトをご覧頂けます。｣【コンセプトはこちら】をつけたい
+
+指定していただいた <ここ> の位置（メッセージエリアと日付ヘッダーの間）に、コンセプト案内のテキストとボタンを追加したコードを作成しました。
+
+「【コンセプトはこちら】」のボタンも、サイト全体のホラー調（黒×赤）に合わせたデザインにしています。
+
+index.html の内容を以下に差し替えて更新（Commit changes）してください。
+※ https://YOUR_CONCEPT_URL_HERE の部分を、コンセプトページのURL（またはドキュメントやフォーム等のリンク）に書き換えてご利用ください。
+
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omori Lab. 予約受付</title>
+    <style>
+        body {
+            font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", serif;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: #d1d1d1;
+            line-height: 1.7;
+        }
+        
+        .intro-box {
+            background-color: #1a0505;
+            border-left: 4px solid #8b0000;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        
+        .intro-box p {
+            margin: 0 0 10px 0;
+        }
+        
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-title {
+            color: #ff3333;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #8b0000;
+        }
+
+        /* コンセプトセクションのスタイル */
+        .concept-section {
+            text-align: center;
+            background-color: #120808;
+            border: 1px dashed #660000;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .concept-text {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            color: #bbbbbb;
+        }
+
+        .btn-concept {
+            display: inline-block;
+            background-color: #8b0000;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: 1px solid #ff3333;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-concept:hover {
+            background-color: #b30000;
+            box-shadow: 0 0 15px #ff0000;
+        }
+        
+        .date-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            border-bottom: 1px solid #8b0000;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: #ff2222;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+        }
+        
+        .slot-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .slot-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 18px;
+            margin-bottom: 12px;
+            background-color: #141414;
+            border: 1px solid #330000;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .slot-item:hover {
+            border-color: #8b0000;
+            box-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+        }
+        
+        .time-label {
+            font-weight: bold;
+            font-size: 1em;
+            color: #cccccc;
+            letter-spacing: 1px;
+        }
+        
+        .btn-reserve {
+            display: inline-block;
+            background-color: #5a0000;
+            color: #ffcccc;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #8b0000;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .btn-reserve:hover {
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 10px #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="intro-box">
+        <p><strong class="highlight-title">Omori Lab.へようこそ。</strong></p>
+        <p>Omori Lab.では1時間ごとに5枠程度の予約枠を設けています。</p>
+        <p>また予約ができなかったかたも、当日整理券がございますが、予約をぜひご利用ください。</p>
+    </div>
+
+    <!-- コンセプト案内エリア -->
+    <div class="concept-section">
+        <p class="concept-text">下のボタンより、当ラボのコンセプトをご覧頂けます。</p>
+        <a href="https://YOUR_CONCEPT_URL_HERE" target="_blank" class="btn-concept">【コンセプトはこちら】</a>
+    </div>
+
+    <div class="date-header">予約フォーム一覧 8月26日</div>
+    <ul class="slot-list">
+        <li class="slot-item">
+            <span class="time-label">11:00 ～ 12:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_1" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:00 ～ 12:50</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_2" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">13:10 ～ 14:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_3" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">14:00 ～ 14:50</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0826_4" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+    </ul>
+
+    <div class="date-header">予約フォーム一覧 8月27日</div>
+    <ul class="slot-list">
+        <li class="slot-item">
+            <span class="time-label">9:00 ～ 10:00</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_1" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">10:00 ～ 11:05</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_2" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">11:25 ～ 12:10</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_3" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:10 ～ 12:55</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_4" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+        <li class="slot-item">
+            <span class="time-label">12:55 ～ 13:30</span>
+            <a href="https://forms.gle/YOUR_FORM_URL_0827_5" target="_blank" class="btn-reserve">予約する</a>
+        </li>
+    </ul>
+
+</body>
+</html>
+同じ雰囲気でそのコンセプトはこちらのページをあたらに作りたいのですが
+
+同じホラーな雰囲気（漆黒の背景×血のような赤色）を引き継いだ「コンセプトページ」のHTMLコードを作成しました。
+
+このページを作成するには、GitHubで新しく concept.html という名前のファイルを作成します。
+
+1. concept.html の作成手順
+1
+GitHubで新しいファイルを作成する
+リポジトリの画面（yoyaku）を開きます。
+
+右上にある Add file ＞ Create new file をクリックします。
+
+2
+ファイル名を入力する
+ファイル名の入力欄に concept.html と半角で入力します。
+
+3
+コードを貼り付けて保存する
+下記のコード（concept.html のサンプル）をコピーして貼り付けます。
+
+文章の内容を実際のコンセプトや案内に合わせて自由に変更してください。
+
+右上の Commit changes... を押して保存します。
+
+2. concept.html のコード
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omori Lab. - コンセプト</title>
+    <style>
+        body {
+            font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", serif;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: #d1d1d1;
+            line-height: 1.8;
+        }
+
+        .header-title {
+            text-align: center;
+            color: #ff2222;
+            font-size: 1.6em;
+            letter-spacing: 3px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+            border-bottom: 1px solid #8b0000;
+            padding-bottom: 15px;
+        }
+
+        .content-box {
+            background-color: #141414;
+            border: 1px solid #330000;
+            border-radius: 6px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.2);
+        }
+
+        .section-heading {
+            color: #ff4444;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-left: 3px solid #8b0000;
+            padding-left: 10px;
+        }
+
+        p {
+            margin-bottom: 1.2em;
+        }
+
+        .warning-text {
+            color: #ff6666;
+            font-weight: bold;
+            background-color: #220000;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 3px solid #ff0000;
+            margin: 20px 0;
+        }
+
+        .nav-footer {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background-color: #330000;
+            color: #ffcccc;
+            text-decoration: none;
+            padding: 10px 24px;
+            border: 1px solid #8b0000;
+            border-radius: 4px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 12px #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-title">
+        Omori Lab. CONCEPT
+    </div>
+
+    <div class="content-box">
+        <div class="section-heading">当研究室（Lab.）について</div>
+        <p>
+            Omori Lab. へ足を踏み入れる皆様へ。<br>
+            当ラボでは、普段の学校生活では決して味わうことのできない「異空間」をご提供しております。
+        </p>
+
+        <div class="section-heading">体験内容</div>
+        <p>
+            扉の向こうに広がるのは、不気味な静寂と未知の実験。あなたはこの空間の謎を解き明かし、無事に生還することができるでしょうか……。
+        </p>
+
+        <div class="warning-text">
+            ⚠️ 注意事項<br>
+            ※ 暗い部屋や恐怖演出がございます。心臓の弱い方、体調の優れない方はご注意ください。<br>
+            ※ 室内での撮影・録音については、指示に従ってください。
+        </div>
+
+        <div class="section-heading">お越しになる皆様へ</div>
+        <p>
+            ご予約いただいた時間帯の【5分前】までに、ラボ前（教室前）にお越しください。<br>
+            皆様のご訪問を、心よりお待ちしております。
+        </p>
+    </div>
+
+    <div class="nav-footer">
+        <a href="index.html" class="btn-back">← 予約ページに戻る</a>
+    </div>
+
+</body>
+</html>
+3. index.html 側のリンク修正
+concept.html を作成したら、トップページ（index.html）の「【コンセプトはこちら】」のボタンのリンク先を以下のように更新してください。
+
+変更前: href="https://YOUR_CONCEPT_URL_HERE"
+
+変更後: href="concept.html"
+
+同じサイト内にある concept.html を指定するだけで、自然にページ遷移できるようになります！
+
+コンセプトはこちら　ボタンの視認性を上げたい
+
+ボタンの存在感をグッと高め、一目でクリックできるとわかるように視認性をアップさせたスタイルをご提案します。
+
+「黒×赤」のホラーな雰囲気を壊さずに視認性を上げるため、赤く怪しく明滅するアニメーション効果（パルス）とテキストの強調を追加しました。
+
+変更点
+ゆっくり明滅（点滅）する光の演出: ボタンの外枠と影が赤くじわじわと光り、自然と目が行くようになります。
+
+文字の強調: 文字を少し大きくし、太字＆文字影を加えて読みやすくしました。
+
+ホバー時の変化: タップ・マウスホバーした時にパッと明るく浮き出るような手応えを加えています。
+
+修正後のコード（index.html 全体）
+index.html の内容を以下に差し替えて更新（Commit changes）してください。
+※「【コンセプトはこちら】」のリンク先は concept.html に設定済みです。
+
+HTML
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omori Lab. 予約受付</title>
+    <style>
+        body {
+            font-family: "游明朝", "Yu Mincho", "Hiragino Mincho ProN", serif;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0d0d0d;
+            color: #d1d1d1;
+            line-height: 1.7;
+        }
+        
+        .intro-box {
+            background-color: #1a0505;
+            border-left: 4px solid #8b0000;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+        
+        .intro-box p {
+            margin: 0 0 10px 0;
+        }
+        
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-title {
+            color: #ff3333;
+            font-size: 1.2em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #8b0000;
+        }
+
+        /* コンセプトセクションのスタイル */
+        .concept-section {
+            text-align: center;
+            background-color: #140505;
+            border: 1px dashed #a00000;
+            padding: 20px 15px;
+            margin-bottom: 35px;
+            border-radius: 6px;
+        }
+
+        .concept-text {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1em;
+            color: #ffffff;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* 視認性を上げたコンセプトボタン */
+        .btn-concept {
+            display: inline-block;
+            background: linear-gradient(180deg, #b30000 0%, #660000 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 900;
+            font-size: 1.15em;
+            letter-spacing: 2px;
+            border: 2px solid #ff3333;
+            text-shadow: 0 0 5px #000000, 0 0 10px #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            animation: pulse-red 2s infinite;
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* ホバー時の変化 */
+        .btn-concept:hover {
+            background: linear-gradient(180deg, #ff1a1a 0%, #990000 100%);
+            transform: scale(1.03);
+            box-shadow: 0 0 25px #ff0000;
+            border-color: #ffffff;
+        }
+
+        /* 怪しく点滅するアニメーション */
+        @keyframes pulse-red {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+                border-color: #ff3333;
+            }
+            50% {
+                box-shadow: 0 0 22px rgba(255, 0, 0, 0.95);
+                border-color: #ff8888;
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+                border-color: #ff3333;
+            }
+        }
         
         .date-header {
             font-size: 1.3em;
