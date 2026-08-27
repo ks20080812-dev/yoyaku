@@ -15,10 +15,13 @@
       margin: 0;
       padding: 20px 15px;
       line-height: 1.8;
+      overflow-x: hidden;
     }
     .container {
       max-width: 800px;
       margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
     /* タイトルヘッダー */
@@ -71,7 +74,7 @@
       filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
     }
 
-    /* クレジット部分（中央揃え・映画のエンドロール風） */
+    /* クレジット部分 */
     .credits-container {
       text-align: center;
       padding: 30px 10px;
@@ -81,7 +84,6 @@
       border-radius: 8px;
       margin: 40px 0;
     }
-
     .credit-group {
       margin-bottom: 32px;
     }
@@ -136,7 +138,7 @@
       line-height: 1.8;
     }
 
-    /* トップへ戻るボタン */
+    /* 戻るボタン */
     .back-nav {
       margin-top: 40px;
       margin-bottom: 20px;
@@ -160,132 +162,11 @@
     }
   </style>
 </head>
+<body>
 
-  <!-- リッチパーティクルアニメーション（Canvas） -->
-<canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999;"></canvas>
+  <!-- パーティクル描画用キャンバス（画面最背面） -->
+  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
 
-<style>
-  /* タイトル文字のキラリと光る効果 */
-  .page-title, .hero-title {
-    background: linear-gradient(90deg, #ff2b2b 0%, #ffffff 50%, #ff2b2b 100%);
-    background-size: 200% auto;
-    color: transparent !important;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: titleShine 4s linear infinite;
-  }
-
-  @keyframes titleShine {
-    to {
-      background-position: 200% center;
-    }
-  }
-</style>
-
-<script>
-  (function() {
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    const particles = [];
-    const particleCount = 45; // 粒子の数（お好みで調整可能）
-
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * width;
-        this.y = height + Math.random() * 50;
-        this.radius = Math.random() * 2.5 + 0.8; // 粒子の大きさ
-        this.speedY = Math.random() * 0.8 + 0.3; // 上昇スピード
-        this.speedX = (Math.random() - 0.5) * 0.5; // 横揺れ
-        this.opacity = 0;
-        this.maxOpacity = Math.random() * 0.7 + 0.3;
-        this.fadeSpeed = Math.random() * 0.01 + 0.005;
-        this.isFadingOut = false;
-
-        // 赤、朱色、白のいずれかのネオンカラー
-        const colors = [
-          '255, 43, 43',   #ff2b2b (赤)
-          '255, 100, 100', #ff6464 (薄赤)
-          '255, 200, 200'  #ffc8c8 (白に近いピンク)
-        ];
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      update() {
-        this.y -= this.speedY;
-        this.x += Math.sin(this.y * 0.01) * 0.5 + this.speedX;
-
-        // フェードイン・フェードアウト制御
-        if (!this.isFadingOut) {
-          this.opacity += this.fadeSpeed;
-          if (this.opacity >= this.maxOpacity) {
-            this.isFadingOut = true;
-          }
-        } else {
-          this.opacity -= this.fadeSpeed;
-          if (this.opacity <= 0) {
-            this.reset();
-          }
-        }
-
-        if (this.y < -10) {
-          this.reset();
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(
-          this.x, this.y, 0,
-          this.x, this.y, this.radius * 2
-        );
-        gradient.addColorStop(0, `rgba(${this.color}, ${this.opacity})`);
-        gradient.addColorStop(1, `rgba(${this.color}, 0)`);
-
-        ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-      const p = new Particle();
-      p.y = Math.random() * height; // 初回は画面全体に分散
-      p.opacity = Math.random() * p.maxOpacity;
-      particles.push(p);
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      
-      // 光の重ね合わせ（加算合成）で幻想的に発光させる
-      ctx.globalCompositeOperation = 'lighter';
-
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  })();
-</script>
-
-  <body>
   <div class="container">
 
     <!-- タイトル -->
@@ -294,9 +175,8 @@
       <p class="page-subtitle">制作・運営キャスト一覧</p>
     </div>
 
-    <!-- 【全員写真】 -->
+    <!-- 全員写真 -->
     <div class="image-box">
-      <!-- 写真ファイル名: cast_all.jpg -->
       <img src="cast_all.jpg" alt="３年６組 全員写真" class="cast-photo">
     </div>
 
@@ -359,9 +239,8 @@
 
     </div>
 
-    <!-- 【Omori Lab.のロゴ】 -->
+    <!-- ロゴ -->
     <div class="image-box">
-      <!-- ロゴファイル名: logo.png -->
       <img src="logo.png" alt="Omori Lab. Logo" class="logo-img">
     </div>
 
@@ -380,5 +259,101 @@
     </div>
 
   </div>
+
+  <!-- パーティクル制御スクリプト -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const particleCount = 45;
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          this.x = Math.random() * width;
+          this.y = height + Math.random() * 50;
+          this.radius = Math.random() * 2.5 + 0.8;
+          this.speedY = Math.random() * 0.8 + 0.3;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.opacity = 0;
+          this.maxOpacity = Math.random() * 0.7 + 0.3;
+          this.fadeSpeed = Math.random() * 0.01 + 0.005;
+          this.isFadingOut = false;
+
+          const colors = ['255, 43, 43', '255, 100, 100', '255, 200, 200'];
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        update() {
+          this.y -= this.speedY;
+          this.x += Math.sin(this.y * 0.01) * 0.5 + this.speedX;
+
+          if (!this.isFadingOut) {
+            this.opacity += this.fadeSpeed;
+            if (this.opacity >= this.maxOpacity) {
+              this.isFadingOut = true;
+            }
+          } else {
+            this.opacity -= this.fadeSpeed;
+            if (this.opacity <= 0) {
+              this.reset();
+            }
+          }
+
+          if (this.y < -10) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.beginPath();
+          const gradient = ctx.createRadialGradient(
+            this.x, this.y, 0,
+            this.x, this.y, this.radius * 2
+          );
+          gradient.addColorStop(0, `rgba(${this.color}, ${this.opacity})`);
+          gradient.addColorStop(1, `rgba(${this.color}, 0)`);
+
+          ctx.fillStyle = gradient;
+          ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        const p = new Particle();
+        p.y = Math.random() * height;
+        p.opacity = Math.random() * p.maxOpacity;
+        particles.push(p);
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'lighter';
+
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    });
+  </script>
 </body>
 </html>
