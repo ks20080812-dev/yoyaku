@@ -176,39 +176,63 @@
     </div>
 
     <div style="border: 1px dashed #4a0d0d; border-radius: 8px; padding: 20px; text-align: center; margin: 30px 0;">
+
+    <style>
+  @keyframes neonGlow {
+    0% {
+      box-shadow: 0 0 5px #ff2b2b, 0 0 10px #ff2b2b, inset 0 0 5px #ff2b2b;
+      border-color: #ff2b2b;
+    }
+    50% {
+      box-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000, 0 0 35px #990000, inset 0 0 10px #ff0000;
+      border-color: #ff6666;
+    }
+    100% {
+      box-shadow: 0 0 5px #ff2b2b, 0 0 10px #ff2b2b, inset 0 0 5px #ff2b2b;
+      border-color: #ff2b2b;
+    }
+  }
+
+  .rich-glowing-btn {
+    display: inline-block;
+    background: linear-gradient(180deg, #b30000 0%, #4a0000 100%);
+    color: #ffffff !important;
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    border: 2px solid #ff2b2b;
+    
+    /* アニメーションの適用：2秒周期で無限にジワジワ光る */
+    animation: neonGlow 2s infinite ease-in-out;
+    transition: all 0.3s ease;
+  }
+
+  /* ホバー時（カーソルを乗せたとき）の強烈な発光＆ホバー効果 */
+  .rich-glowing-btn:hover {
+    transform: translateY(-3px) scale(1.03);
+    background: linear-gradient(180deg, #e60000 0%, #660000 100%);
+    box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff3333 !important;
+    color: #ffffff !important;
+  }
+</style>
+
+<div style="border: 1px dashed #551111; border-radius: 8px; padding: 24px; text-align: center; margin: 30px 0; background-color: rgba(15, 5, 5, 0.6);">
   
-        <!-- ボタンと案内テキストをまとめたブロック -->
-    <div style="border: 1px dashed #4a0d0d; border-radius: 8px; padding: 20px; text-align: center; margin: 30px 0;">
+  <p style="color: #cccccc; margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6;">
+    問題の回答と答えは、２７日中に公開します。それまでは謎解き【１日目第２問】が表示されます。<br>
+    いましばらくお待ちください・
+  </p>
+
+  <a href="questio2.jpg" class="rich-glowing-btn">
+    【 正解・解説はこちら 】
+  </a>
+
+</div>
   
-      <p style="color: #cccccc; margin-bottom: 15px; font-size: 0.95rem;">
-        問題の回答と答えは、27日中に公開します。それまでは謎解き【1日目第2問】が表示されます。<br>
-        いましばらくお待ちください・
-      </p>
-
-      <a href="question2.jpg" class="btn" style="
-        display: inline-block;
-        background: linear-gradient(180deg, #990000 0%, #550000 100%);
-        color: #ffffff;
-        text-decoration: none;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-weight: bold;
-        border: 1px solid #ff2b2b;
-        box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-        font-size: 1.1rem;
-      ">
-        【 正解・解説はこちら 】
-      </a>
-
-    </div>
-
-
-
-        
-    </div>
-
-        <p>問題の回答と答えは、２７日中に公開します。それまでは謎解き【１日目第2問】が表示されます。いましばらくお待ちください・<p>
-
+      
 　　<div class="concept-section">
         <p class="concept-text">こちらから、当ラボの概要、<br>注意事項などをご覧ください。</p>
         <a href="concept.html" target="_blank" class="btn-concept">【コンセプトはこちら】</a>
