@@ -160,6 +160,112 @@
     }
   </style>
 </head>
+
+  <!-- ✨ キラキラアニメーション用のスタイルとスクリプト -->
+<style>
+  /* --- 1. タイトル文字が輝く（キラリと光が走る）エフェクト --- */
+  .page-title, .hero-title {
+    background: linear-gradient(90deg, #ff2b2b 0%, #ffffff 50%, #ff2b2b 100%);
+    background-size: 200% auto;
+    color: transparent !important;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: titleShine 4s linear infinite;
+  }
+
+  @keyframes titleShine {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  /* --- 2. 背景を漂う✨粒子のスタイル --- */
+  .sparkle-icon {
+    position: fixed;
+    pointer-events: none;
+    color: #ff6666;
+    font-size: 14px;
+    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff2b2b;
+    opacity: 0;
+    z-index: 9999;
+    animation: floatSparkle 3s ease-in-out forwards;
+  }
+
+  .sparkle-dot {
+    position: fixed;
+    pointer-events: none;
+    background: radial-gradient(circle, #ffffff 0%, #ff2b2b 60%, rgba(255, 0, 0, 0) 100%);
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 9999;
+    animation: fadeDot 2.5s ease-in-out forwards;
+  }
+
+  @keyframes floatSparkle {
+    0% {
+      transform: translateY(10px) scale(0.3) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.9;
+      transform: translateY(-15px) scale(1.1) rotate(180deg);
+    }
+    100% {
+      transform: translateY(-40px) scale(0.3) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeDot {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+      box-shadow: 0 0 0px #ff0000;
+    }
+    50% {
+      opacity: 0.8;
+      box-shadow: 0 0 12px #ff0000;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  // ✨ キラキラ粒子を自動生成する処理
+  function createSparkle() {
+    const isIcon = Math.random() > 0.4; // 60%の確率で「✨」、40%の確率で「光の点」
+    const element = document.createElement('div');
+
+    if (isIcon) {
+      element.className = 'sparkle-icon';
+      element.innerText = '✨';
+      element.style.fontSize = (Math.random() * 10 + 10) + 'px'; // サイズをランダム化
+    } else {
+      element.className = 'sparkle-dot';
+      const size = Math.random() * 6 + 3;
+      element.style.width = size + 'px';
+      element.style.height = size + 'px';
+    }
+
+    // 画面のランダムな位置に発生
+    element.style.left = Math.random() * 100 + 'vw';
+    element.style.top = Math.random() * 100 + 'vh';
+
+    document.body.appendChild(element);
+
+    // アニメーション終了後に要素を削除（メモリ負荷防止）
+    setTimeout(() => {
+      element.remove();
+    }, 3000);
+  }
+
+  // 400ミリ秒ごとに新しいキラキラを生成
+  setInterval(createSparkle, 400);
+</script>
+  
 <body>
   <div class="container">
 
