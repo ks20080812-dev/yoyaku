@@ -20,6 +20,7 @@
       max-width: 800px;
       margin: 0 auto;
     }
+
     /* トップのアナウンスカード */
     .hero-card {
       background-color: #120707;
@@ -27,6 +28,7 @@
       border-radius: 8px;
       padding: 24px;
       margin-bottom: 36px;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
     }
     .hero-title {
       color: #ff2b2b;
@@ -39,6 +41,7 @@
       color: #cccccc;
       margin: 0;
     }
+
     /* 問題カード */
     .question-card {
       background-color: #0d0d0d;
@@ -46,6 +49,7 @@
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 28px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
     .question-header {
       color: #ff2b2b;
@@ -63,50 +67,116 @@
       border-radius: 6px;
       border: 1px solid #333333;
       display: block;
-      margin: 16px 0;
+      margin: 16px 0 24px 0;
     }
-    .answer-box {
-      background-color: #1a0808;
-      border-left: 4px solid #ff2b2b;
+
+    /* --- リッチな開閉（アコーディオン）UI --- */
+    .accordion-item {
+      border: 1px solid #330a0a;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      background-color: #120505;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .accordion-item[open] {
+      border-color: #ff2b2b;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    }
+
+    .accordion-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 12px 16px;
-      margin: 16px 0;
-      border-radius: 0 6px 6px 0;
-    }
-    .answer-label {
-      color: #ff2b2b;
+      background: linear-gradient(180deg, #1f0808 0%, #120505 100%);
+      color: #ff4d4d;
       font-weight: bold;
-      font-size: 0.95rem;
-      margin-bottom: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      user-select: none;
+      list-style: none; /* デフォルト矢印消去 */
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    .answer-text {
-      font-size: 1.1rem;
-      font-weight: bold;
+    .accordion-summary::-webkit-details-marker {
+      display: none; /* Safari用デフォルト矢印消去 */
+    }
+    .accordion-summary:hover {
+      background: linear-gradient(180deg, #330d0d 0%, #1f0808 100%);
       color: #ffffff;
     }
-    .explanation-title {
-      color: #ff2b2b;
+
+    /* アコーディオンの矢印アイコン */
+    .icon-arrow {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid #ff2b2b;
+      border-bottom: 2px solid #ff2b2b;
+      transform: rotate(45deg);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-right: 4px;
+    }
+    .accordion-item[open] .icon-arrow {
+      transform: rotate(-135deg);
+    }
+
+    /* アニメーション用のラッパー */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+      background-color: #0a0303;
+    }
+    .accordion-item[open] .accordion-content {
+      grid-template-rows: 1fr;
+    }
+    .accordion-body {
+      overflow: hidden;
+      padding: 0 16px;
+      transition: padding 0.35s ease;
+    }
+    .accordion-item[open] .accordion-body {
+      padding: 16px;
+      border-top: 1px solid #2a0808;
+    }
+
+    /* 各欄のテキスト・装飾 */
+    .hint-text {
+      color: #dddddd;
+      margin: 0;
+    }
+    .answer-text {
+      font-size: 1.2rem;
       font-weight: bold;
-      margin-top: 16px;
-      margin-bottom: 8px;
+      color: #ffffff;
+      margin: 0;
     }
     .explanation-text {
       color: #bbbbbb;
       margin: 0;
     }
+
     /* 戻るボタン */
     .back-nav {
       margin-top: 40px;
+      margin-bottom: 20px;
       text-align: center;
     }
     .back-btn {
       display: inline-block;
       background: linear-gradient(180deg, #990000 0%, #550000 100%);
-      color: #ffffff;
+      color: #ffffff !important;
       text-decoration: none;
-      padding: 10px 24px;
+      padding: 12px 28px;
       border-radius: 6px;
       font-weight: bold;
       border: 1px solid #ff2b2b;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
     }
   </style>
 </head>
@@ -123,58 +193,182 @@
 
     <!-- 1問目 -->
     <div class="question-card">
-      <div class="question-header">【１問目】正答率 85％</div>
-      <img src="q1.jpg" alt="1問目の問題画像" class="quiz-image">
-      <div class="answer-box">
-        <div class="answer-label">正解</div>
-        <div class="answer-text">◯◯◯◯</div>
-      </div>
-      <div class="explanation-title">考え方・解説</div>
-      <p class="explanation-text">
-        ここには1問目の考え方や詳しい解説文を記載します。
-      </p>
+      <div class="question-header">【１問目】正答率 ◎％</div>
+      <img src="question1.jpg" alt="1問目の問題画像" class="quiz-image">
+
+      <!-- ヒント -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>💡 ヒントを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="hint-text">ここに1問目のヒントが入ります。</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 答え -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>🔓 答えを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="answer-text">◯◯◯◯</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 解説 -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>📝 考え方・解説を見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="explanation-text">ここに1問目の考え方や詳しい解説文が入ります。</p>
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- 2問目 -->
     <div class="question-card">
-      <div class="question-header">【２問目】正答率 60％</div>
+      <div class="question-header">【２問目】正答率 ◎％</div>
       <img src="question2.jpg" alt="2問目の問題画像" class="quiz-image">
-      <div class="answer-box">
-        <div class="answer-label">正解</div>
-        <div class="answer-text">◯◯◯◯</div>
-      </div>
-      <div class="explanation-title">考え方・解説</div>
-      <p class="explanation-text">
-        ここには2問目の考え方や詳しい解説文を記載します。
-      </p>
+
+      <!-- ヒント -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>💡 ヒントを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="hint-text">ここに2問目のヒントが入ります。</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 答え -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>🔓 答えを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="answer-text">◯◯◯◯</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 解説 -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>📝 考え方・解説を見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="explanation-text">ここに2問目の考え方や詳しい解説文が入ります。</p>
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- 3問目 -->
     <div class="question-card">
-      <div class="question-header">【３問目】正答率 40％</div>
+      <div class="question-header">【３問目】正答率 ◎％</div>
       <img src="question3.jpg" alt="3問目の問題画像" class="quiz-image">
-      <div class="answer-box">
-        <div class="answer-label">正解</div>
-        <div class="answer-text">◯◯◯◯</div>
-      </div>
-      <div class="explanation-title">考え方・解説</div>
-      <p class="explanation-text">
-        ここには3問目の考え方や詳しい解説文を記載します。
-      </p>
+
+      <!-- ヒント -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>💡 ヒントを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="hint-text">ここに3問目のヒントが入ります。</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 答え -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>🔓 答えを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="answer-text">◯◯◯◯</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 解説 -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>📝 考え方・解説を見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="explanation-text">ここに3問目の考え方や詳しい解説文が入ります。</p>
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- 4問目 -->
     <div class="question-card">
-      <div class="question-header">【４問目】正答率 15％</div>
+      <div class="question-header">【４問目】正答率 ◎％</div>
       <img src="question4.jpg" alt="4問目の問題画像" class="quiz-image">
-      <div class="answer-box">
-        <div class="answer-label">正解</div>
-        <div class="answer-text">◯◯◯◯</div>
-      </div>
-      <div class="explanation-title">考え方・解説</div>
-      <p class="explanation-text">
-        ここには4問目の考え方や詳しい解説文を記載します。
-      </p>
+
+      <!-- ヒント -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>💡 ヒントを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="hint-text">ここに4問目のヒントが入ります。</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 答え -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>🔓 答えを見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="answer-text">◯◯◯◯</p>
+          </div>
+        </div>
+      </details>
+
+      <!-- 解説 -->
+      <details class="accordion-item">
+        <summary class="accordion-summary">
+          <span>📝 考え方・解説を見る</span>
+          <span class="icon-arrow"></span>
+        </summary>
+        <div class="accordion-content">
+          <div class="accordion-body">
+            <p class="explanation-text">ここに4問目の考え方や詳しい解説文が入ります。</p>
+          </div>
+        </div>
+      </details>
     </div>
 
     <!-- index.htmlに戻るリンク -->
