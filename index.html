@@ -178,6 +178,113 @@
           transform: scale(1.08);
           filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.8));
         }
+        
+        /* ロゴをクリック可能に */
+.top-logo {
+  cursor: pointer;
+}
+
+/* フルスクリーンメニュー背景 */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 0, 0, 0.93);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
+}
+
+/* メニュー表示時 */
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 閉じるボタン (✕) */
+.menu-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: #ff2b2b;
+  font-size: 2.2rem;
+  cursor: pointer;
+  line-height: 1;
+  text-shadow: 0 0 10px #ff0000;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.menu-close-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+  color: #ffffff;
+}
+
+/* メニューリスト */
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+/* 各メニュー項目のスライドインアニメーション */
+.menu-item {
+  margin: 24px 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.menu-overlay.active .menu-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 時間差で順番に表示 */
+.menu-overlay.active .menu-item:nth-child(1) { transition-delay: 0.1s; }
+.menu-overlay.active .menu-item:nth-child(2) { transition-delay: 0.2s; }
+.menu-overlay.active .menu-item:nth-child(3) { transition-delay: 0.3s; }
+
+.menu-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  padding: 10px 28px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.menu-link:hover {
+  color: #ff4d4d;
+  border-color: #ff2b2b;
+  background: rgba(255, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+  transform: scale(1.05);
+}
+
+/* 下部薄いテキスト（Bank Gothic指定） */
+.menu-footer-text {
+  position: absolute;
+  bottom: 30px;
+  font-family: "Bank Gothic", "BankGothic", "Copperplate", "Cinzel", sans-serif;
+  color: rgba(255, 255, 255, 0.22);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
     </style>
 </head>
 
