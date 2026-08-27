@@ -161,9 +161,11 @@
   </style>
 </head>
 
-  <!-- ✨ キラキラアニメーション用のスタイルとスクリプト -->
+  <!-- リッチパーティクルアニメーション（Canvas） -->
+<canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999;"></canvas>
+
 <style>
-  /* --- 1. タイトル文字が輝く（キラリと光が走る）エフェクト --- */
+  /* タイトル文字のキラリと光る効果 */
   .page-title, .hero-title {
     background: linear-gradient(90deg, #ff2b2b 0%, #ffffff 50%, #ff2b2b 100%);
     background-size: 200% auto;
@@ -178,95 +180,112 @@
       background-position: 200% center;
     }
   }
-
-  /* --- 2. 背景を漂う✨粒子のスタイル --- */
-  .sparkle-icon {
-    position: fixed;
-    pointer-events: none;
-    color: #ff6666;
-    font-size: 14px;
-    text-shadow: 0 0 10px #ff0000, 0 0 20px #ff2b2b;
-    opacity: 0;
-    z-index: 9999;
-    animation: floatSparkle 3s ease-in-out forwards;
-  }
-
-  .sparkle-dot {
-    position: fixed;
-    pointer-events: none;
-    background: radial-gradient(circle, #ffffff 0%, #ff2b2b 60%, rgba(255, 0, 0, 0) 100%);
-    border-radius: 50%;
-    opacity: 0;
-    z-index: 9999;
-    animation: fadeDot 2.5s ease-in-out forwards;
-  }
-
-  @keyframes floatSparkle {
-    0% {
-      transform: translateY(10px) scale(0.3) rotate(0deg);
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.9;
-      transform: translateY(-15px) scale(1.1) rotate(180deg);
-    }
-    100% {
-      transform: translateY(-40px) scale(0.3) rotate(360deg);
-      opacity: 0;
-    }
-  }
-
-  @keyframes fadeDot {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-      box-shadow: 0 0 0px #ff0000;
-    }
-    50% {
-      opacity: 0.8;
-      box-shadow: 0 0 12px #ff0000;
-    }
-    100% {
-      transform: scale(1.5);
-      opacity: 0;
-    }
-  }
 </style>
 
 <script>
-  // ✨ キラキラ粒子を自動生成する処理
-  function createSparkle() {
-    const isIcon = Math.random() > 0.4; // 60%の確率で「✨」、40%の確率で「光の点」
-    const element = document.createElement('div');
+  (function() {
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
 
-    if (isIcon) {
-      element.className = 'sparkle-icon';
-      element.innerText = '✨';
-      element.style.fontSize = (Math.random() * 10 + 10) + 'px'; // サイズをランダム化
-    } else {
-      element.className = 'sparkle-dot';
-      const size = Math.random() * 6 + 3;
-      element.style.width = size + 'px';
-      element.style.height = size + 'px';
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const particles = [];
+    const particleCount = 45; // 粒子の数（お好みで調整可能）
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + Math.random() * 50;
+        this.radius = Math.random() * 2.5 + 0.8; // 粒子の大きさ
+        this.speedY = Math.random() * 0.8 + 0.3; // 上昇スピード
+        this.speedX = (Math.random() - 0.5) * 0.5; // 横揺れ
+        this.opacity = 0;
+        this.maxOpacity = Math.random() * 0.7 + 0.3;
+        this.fadeSpeed = Math.random() * 0.01 + 0.005;
+        this.isFadingOut = false;
+
+        // 赤、朱色、白のいずれかのネオンカラー
+        const colors = [
+          '255, 43, 43',   #ff2b2b (赤)
+          '255, 100, 100', #ff6464 (薄赤)
+          '255, 200, 200'  #ffc8c8 (白に近いピンク)
+        ];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.y -= this.speedY;
+        this.x += Math.sin(this.y * 0.01) * 0.5 + this.speedX;
+
+        // フェードイン・フェードアウト制御
+        if (!this.isFadingOut) {
+          this.opacity += this.fadeSpeed;
+          if (this.opacity >= this.maxOpacity) {
+            this.isFadingOut = true;
+          }
+        } else {
+          this.opacity -= this.fadeSpeed;
+          if (this.opacity <= 0) {
+            this.reset();
+          }
+        }
+
+        if (this.y < -10) {
+          this.reset();
+        }
+      }
+
+      draw() {
+        ctx.beginPath();
+        const gradient = ctx.createRadialGradient(
+          this.x, this.y, 0,
+          this.x, this.y, this.radius * 2
+        );
+        gradient.addColorStop(0, `rgba(${this.color}, ${this.opacity})`);
+        gradient.addColorStop(1, `rgba(${this.color}, 0)`);
+
+        ctx.fillStyle = gradient;
+        ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
 
-    // 画面のランダムな位置に発生
-    element.style.left = Math.random() * 100 + 'vw';
-    element.style.top = Math.random() * 100 + 'vh';
+    for (let i = 0; i < particleCount; i++) {
+      const p = new Particle();
+      p.y = Math.random() * height; // 初回は画面全体に分散
+      p.opacity = Math.random() * p.maxOpacity;
+      particles.push(p);
+    }
 
-    document.body.appendChild(element);
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      
+      // 光の重ね合わせ（加算合成）で幻想的に発光させる
+      ctx.globalCompositeOperation = 'lighter';
 
-    // アニメーション終了後に要素を削除（メモリ負荷防止）
-    setTimeout(() => {
-      element.remove();
-    }, 3000);
-  }
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
 
-  // 400ミリ秒ごとに新しいキラキラを生成
-  setInterval(createSparkle, 400);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  })();
 </script>
-  
-<body>
+
+  <body>
   <div class="container">
 
     <!-- タイトル -->
