@@ -82,13 +82,45 @@
       display: block;
       margin: 0 auto;
     }
+    /* ロゴ（クリック可能＆ホバー効果） */
     .logo-img {
       width: 60%;
       max-width: 280px;
       height: auto;
       display: block;
       margin: 0 auto;
+      cursor: pointer;
       filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 18px rgba(255, 0, 0, 0.8));
+    }
+
+    .logo-img:active {
+      transform: scale(0.95);
+    }
+
+    /* ✨ クリック時の赤ネオン・ショックウェーブアニメーション */
+    @keyframes logoShockwave {
+      0% {
+        transform: scale(0.95);
+        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+      }
+      40% {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 35px rgba(255, 0, 0, 1)) brightness(1.4);
+      }
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+      }
+    }
+
+    .logo-anim-active {
+      animation: logoShockwave 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     /* クレジット部分 */
