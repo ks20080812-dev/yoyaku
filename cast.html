@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omori Lab. - CAST & STAFF</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #000000;
+      color: #d0d0d0;
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", MeiYo, sans-serif;
+      margin: 0;
+      padding: 20px 15px;
+      line-height: 1.8;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* タイトルヘッダー */
+    .page-title-card {
+      background-color: #120707;
+      border: 1px solid #4a0d0d;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 36px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    .page-title {
+      color: #ff2b2b;
+      font-size: 1.8rem;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+    .page-subtitle {
+      color: #888888;
+      font-size: 0.9rem;
+      margin-top: 6px;
+      margin-bottom: 0;
+      letter-spacing: 1px;
+    }
+
+    /* 写真・ロゴ共通カードスタイル */
+    .image-box {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .cast-photo {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #4a0d0d;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.25);
+      display: block;
+      margin: 0 auto;
+    }
+    .logo-img {
+      width: 60%;
+      max-width: 280px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.4));
+    }
+
+    /* クレジット部分（中央揃え・映画のエンドロール風） */
+    .credits-container {
+      text-align: center;
+      padding: 30px 10px;
+      background-color: #080303;
+      border-left: 1px solid #220808;
+      border-right: 1px solid #220808;
+      border-radius: 8px;
+      margin: 40px 0;
+    }
+
+    .credit-group {
+      margin-bottom: 32px;
+    }
+    .credit-role {
+      color: #ff3333;
+      font-size: 1.15rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+      text-shadow: 0 0 8px rgba(255, 0, 0, 0.3);
+    }
+    .credit-names {
+      color: #ffffff;
+      font-size: 1.05rem;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* 区切り線 */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background-color: #4a0d0d;
+      margin: 24px auto;
+      box-shadow: 0 0 6px #ff0000;
+    }
+
+    /* 謝辞メッセージ */
+    .acknowledgement-box {
+      text-align: center;
+      margin: 40px 0;
+      padding: 24px 16px;
+      border-top: 1px solid #330d0d;
+      border-bottom: 1px solid #330d0d;
+      background: linear-gradient(180deg, rgba(18,7,7,0.5) 0%, rgba(5,2,2,0.8) 100%);
+    }
+    .ack-en {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-style: italic;
+      color: #ff4d4d;
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+    }
+    .ack-jp {
+      font-style: italic;
+      color: #cccccc;
+      font-size: 0.95rem;
+      margin: 0;
+      line-height: 1.8;
+    }
+
+    /* トップへ戻るボタン */
+    .back-nav {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .back-btn {
+      display: inline-block;
+      background: linear-gradient(180deg, #990000 0%, #550000 100%);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid #ff2b2b;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- タイトル -->
+    <div class="page-title-card">
+      <h1 class="page-title">CAST & STAFF</h1>
+      <p class="page-subtitle">制作・運営キャスト一覧</p>
+    </div>
+
+    <!-- 【全員写真】 -->
+    <div class="image-box">
+      <!-- 写真ファイル名: cast_all.jpg -->
+      <img src="cast_all.jpg" alt="３年６組 全員写真" class="cast-photo">
+    </div>
+
+    <!-- 中央揃えクレジット -->
+    <div class="credits-container">
+
+      <!-- 企画 -->
+      <div class="credit-group">
+        <div class="credit-role">《 企 画 》</div>
+        <p class="credit-names">３年６組一同</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- ストーリー・ムービー -->
+      <div class="credit-group">
+        <div class="credit-role">《 ストーリー・ムービー 》</div>
+        <p class="credit-names">○○ ・ ○○ ・ ○○</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 謎解き -->
+      <div class="credit-group">
+        <div class="credit-role">《 謎 解 き 》</div>
+        <p class="credit-names">○○ ・ ○○ ・ ○○</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 受付・案内人 -->
+      <div class="credit-group">
+        <div class="credit-role">《 受付 ・ 案内人 》</div>
+        <p class="credit-names">○○ ・ ○○ ・ ○○</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 役者 -->
+      <div class="credit-group">
+        <div class="credit-role">《 役 者 》</div>
+        <p class="credit-names">○○ ・ ○○ ・ ○○</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 裏方 -->
+      <div class="credit-group">
+        <div class="credit-role">《 裏 方 》</div>
+        <p class="credit-names">○○ ・ ○○ ・ ○○</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- 特別協力 -->
+      <div class="credit-group">
+        <div class="credit-role">《 特 別 協 力 》</div>
+        <p class="credit-names">○○ ・ ○○ ・ ○○</p>
+      </div>
+
+    </div>
+
+    <!-- 【Omori Lab.のロゴ】 -->
+    <div class="image-box">
+      <!-- ロゴファイル名: logo.png -->
+      <img src="logo.png" alt="Omori Lab. Logo" class="logo-img">
+    </div>
+
+    <!-- 謝辞メッセージ -->
+    <div class="acknowledgement-box">
+      <div class="ack-en">Special Thanks to All Visitors.</div>
+      <p class="ack-jp">
+        Omori Lab.にお越しいただいたすべての皆様へ、<br>
+        心よりの感謝を込めて。
+      </p>
+    </div>
+
+    <!-- トップページへ戻る -->
+    <div class="back-nav">
+      <a href="index.html" class="back-btn">トップページに戻る</a>
+    </div>
+
+  </div>
+</body>
+</html>
