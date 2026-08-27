@@ -411,6 +411,13 @@
 
       animate();
     });
+
+    function clickLogo(element) {
+      element.classList.remove('logo-anim-active');
+      void element.offsetWidth; // アニメーションのリセット処理
+      element.classList.add('logo-anim-active');
+    }
+    
   </script>
 </body>
 </html>
