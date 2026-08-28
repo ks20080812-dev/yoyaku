@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omori Lab. - PHOTO GALLERY</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #000000;
+      color: #d0d0d0;
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", MeiYo, sans-serif;
+      margin: 0;
+      padding: 20px 15px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 1000px; /* ギャラリー用に少し広め */
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      padding-top: 20px;
+    }
+
+    /* --- ✨ テキストキラリ（Shimmer）アニメーション定義 --- */
+    @keyframes textShine {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* --- タイトルヘッダー --- */
+    .page-title-card {
+      background-color: #120707;
+      border: 1px solid #4a0d0d;
+      border-radius: 8px;
+      padding: 30px 20px;
+      margin-bottom: 40px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+    }
+    .page-title {
+      font-size: 2rem;
+      margin: 0;
+      font-weight: bold;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #ff2b2b 0%, #ffffff 50%, #ff2b2b 100%);
+      background-size: 200% auto;
+      color: transparent !important;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: textShine 4s linear infinite;
+    }
+    .page-subtitle {
+      color: #aaaaaa;
+      font-size: 0.95rem;
+      font-weight: normal;
+      margin-top: 12px;
+      margin-bottom: 0;
+      letter-spacing: 1.5px;
+    }
+
+    /* --- ギャラリー（グリッドレイアウト） --- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    /* --- 写真カード --- */
+    .photo-card {
+      background: #0a0303;
+      border: 1px solid #330d0d;
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      /* フワッと現れるアニメーション */
+      animation: fadeUp 0.8s ease-out backwards;
+    }
+    .photo-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: #ff2b2b;
+      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+    }
+    .photo-img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3; /* 写真の縦横比を統一（必要に応じて調整） */
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      border: 1px solid #1a1a1a;
+    }
+
+    /* 薄い説明文 */
+    .photo-caption {
+      color: rgba(255, 255, 255, 0.35); /* 薄い文字 */
+      font-size: 0.8rem;
+      text-align: center;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      letter-spacing: 1px;
+    }
+
+    /* カードを順番に表示する時間差 */
+    .photo-card:nth-child(1) { animation-delay: 0.1s; }
+    .photo-card:nth-child(2) { animation-delay: 0.2s; }
+    .photo-card:nth-child(3) { animation-delay: 0.3s; }
+    .photo-card:nth-child(4) { animation-delay: 0.4s; }
+    .photo-card:nth-child(5) { animation-delay: 0.5s; }
+    .photo-card:nth-child(6) { animation-delay: 0.6s; }
+    /* 以降は一斉表示で軽くする */
+    .photo-card:nth-child(n+7) { animation-delay: 0.7s; }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- メニュー・ロゴ関連（index.htmlと共通） --- */
+    .top-logo {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      width: 50px;
+      height: auto;
+      z-index: 1000;
+      cursor: pointer;
+      filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .top-logo:hover {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.8));
+    }
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(5, 0, 0, 0.93);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
+    }
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .menu-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: #ff2b2b;
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+      text-shadow: 0 0 10px #ff0000;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .menu-close-btn:hover {
+      transform: rotate(90deg) scale(1.1);
+      color: #ffffff;
+    }
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+    .menu-item {
+      margin: 24px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .menu-overlay.active .menu-item { opacity: 1; transform: translateY(0); }
+    .menu-overlay.active .menu-item:nth-child(1) { transition-delay: 0.1s; }
+    .menu-overlay.active .menu-item:nth-child(2) { transition-delay: 0.2s; }
+    .menu-overlay.active .menu-item:nth-child(3) { transition-delay: 0.3s; }
+    .menu-overlay.active .menu-item:nth-child(4) { transition-delay: 0.4s; }
+
+    .menu-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.35rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+      padding: 10px 28px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    .menu-link:hover {
+      color: #ff4d4d;
+      border-color: #ff2b2b;
+      background: rgba(255, 0, 0, 0.1);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+      transform: scale(1.05);
+    }
+    .menu-footer-text {
+      position: absolute;
+      bottom: 30px;
+      font-family: "Bank Gothic", "BankGothic", "Copperplate", "Cinzel", sans-serif;
+      color: rgba(255, 255, 255, 0.22);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* 戻るボタン */
+    .back-nav {
+      margin-top: 20px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .back-btn {
+      display: inline-block;
+      background: linear-gradient(180deg, #990000 0%, #550000 100%);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 1px solid #ff2b2b;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+    .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 背景パーティクル -->
+  <canvas id="particle-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1;"></canvas>
+
+  <!-- 右上メニューロゴ -->
+  <img src="logo.jpg" alt="Menu" class="top-logo" onclick="toggleMenu()">
+
+  <!-- フルスクリーンメニュー -->
+  <div id="menu-overlay" class="menu-overlay">
+    <div class="menu-close-btn" onclick="toggleMenu()">&times;</div>
+    <ul class="menu-list">
+      <li class="menu-item"><a href="index.html" class="menu-link">トップページ</a></li>
+      <li class="menu-item"><a href="concept.html" class="menu-link">コンセプト</a></li>
+      <li class="menu-item"><a href="cast.html" class="menu-link">キャスト一覧</a></li>
+      <li class="menu-item"><a href="https://forms.gle/1wk1t9uSmm9V5866" target="_blank" class="menu-link">投票</a></li>
+    </ul>
+    <div class="menu-footer-text">Omori Lab. est-2026</div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+
+    <!-- タイトル -->
+    <div class="page-title-card">
+      <h1 class="page-title">PHOTO GALLERY</h1>
+      <p class="page-subtitle">準備中や、四高祭中の写真を紹介します。</p>
+    </div>
+
+    <!-- 写真ギャラリー -->
+    <div class="gallery-grid">
+      
+      <!-- 写真 1 -->
+      <div class="photo-card">
+        <img src="p1.jpg" alt="Photo 1" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 2 -->
+      <div class="photo-card">
+        <img src="p2.jpg" alt="Photo 2" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 3 -->
+      <div class="photo-card">
+        <img src="p3.jpg" alt="Photo 3" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 4 -->
+      <div class="photo-card">
+        <img src="p4.jpg" alt="Photo 4" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 5 -->
+      <div class="photo-card">
+        <img src="p5.jpg" alt="Photo 5" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 6 -->
+      <div class="photo-card">
+        <img src="p6.jpg" alt="Photo 6" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 7 -->
+      <div class="photo-card">
+        <img src="p7.jpg" alt="Photo 7" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 8 -->
+      <div class="photo-card">
+        <img src="p8.jpg" alt="Photo 8" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 9 -->
+      <div class="photo-card">
+        <img src="p9.jpg" alt="Photo 9" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 10 -->
+      <div class="photo-card">
+        <img src="p10.jpg" alt="Photo 10" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 11 -->
+      <div class="photo-card">
+        <img src="p11.jpg" alt="Photo 11" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 12 -->
+      <div class="photo-card">
+        <img src="p12.jpg" alt="Photo 12" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 13 -->
+      <div class="photo-card">
+        <img src="p13.jpg" alt="Photo 13" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 14 -->
+      <div class="photo-card">
+        <img src="p14.jpg" alt="Photo 14" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+      <!-- 写真 15 -->
+      <div class="photo-card">
+        <img src="p15.jpg" alt="Photo 15" class="photo-img" loading="lazy">
+        <p class="photo-caption">ここに説明を追加できます</p>
+      </div>
+
+    </div>
+
+    <!-- トップページへ戻る -->
+    <div class="back-nav">
+      <a href="index.html" class="back-btn">トップページに戻る</a>
+    </div>
+
+  </div>
+
+  <!-- スクリプト群 -->
+  <script>
+    // メニュー開閉処理
+    function toggleMenu() {
+      const overlay = document.getElementById('menu-overlay');
+      overlay.classList.toggle('active');
+    }
+
+    // パーティクルアニメーション処理
+    window.addEventListener('DOMContentLoaded', () => {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      const particleCount = 45;
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          this.x = Math.random() * width;
+          this.y = height + Math.random() * 50;
+          this.radius = Math.random() * 2.5 + 0.8;
+          this.speedY = Math.random() * 0.8 + 0.3;
+          this.speedX = (Math.random() - 0.5) * 0.5;
+          this.opacity = 0;
+          this.maxOpacity = Math.random() * 0.7 + 0.3;
+          this.fadeSpeed = Math.random() * 0.01 + 0.005;
+          this.isFadingOut = false;
+
+          const colors = ['255, 43, 43', '255, 100, 100', '255, 200, 200'];
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        update() {
+          this.y -= this.speedY;
+          this.x += Math.sin(this.y * 0.01) * 0.5 + this.speedX;
+
+          if (!this.isFadingOut) {
+            this.opacity += this.fadeSpeed;
+            if (this.opacity >= this.maxOpacity) {
+              this.isFadingOut = true;
+            }
+          } else {
+            this.opacity -= this.fadeSpeed;
+            if (this.opacity <= 0) {
+              this.reset();
+            }
+          }
+
+          if (this.y < -10) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.beginPath();
+          const gradient = ctx.createRadialGradient(
+            this.x, this.y, 0,
+            this.x, this.y, this.radius * 2
+          );
+          gradient.addColorStop(0, `rgba(${this.color}, ${this.opacity})`);
+          gradient.addColorStop(1, `rgba(${this.color}, 0)`);
+
+          ctx.fillStyle = gradient;
+          ctx.arc(this.x, this.y, this.radius * 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        const p = new Particle();
+        p.y = Math.random() * height;
+        p.opacity = Math.random() * p.maxOpacity;
+        particles.push(p);
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.globalCompositeOperation = 'lighter';
+
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    });
+  </script>
+</body>
+</html>
