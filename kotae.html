@@ -5,6 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Omori Lab. - 謎解き解答公開</title>
   <style>
+
+    /* 右上固定ロゴ */
+.top-logo {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  width: 50px;
+  height: auto;
+  z-index: 1000;
+  cursor: pointer;
+  filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.4));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.top-logo:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 12px rgba(255, 0, 0, 0.8));
+}
+
+/* フルスクリーンメニュー */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 0, 0, 0.93);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s ease;
+}
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.menu-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: #ff2b2b;
+  font-size: 2.2rem;
+  cursor: pointer;
+  line-height: 1;
+  text-shadow: 0 0 10px #ff0000;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.menu-close-btn:hover {
+  transform: rotate(90deg) scale(1.1);
+  color: #ffffff;
+}
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+.menu-item {
+  margin: 20px 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.menu-overlay.active .menu-item { opacity: 1; transform: translateY(0); }
+.menu-overlay.active .menu-item:nth-child(1) { transition-delay: 0.1s; }
+.menu-overlay.active .menu-item:nth-child(2) { transition-delay: 0.2s; }
+.menu-overlay.active .menu-item:nth-child(3) { transition-delay: 0.3s; }
+.menu-overlay.active .menu-item:nth-child(4) { transition-delay: 0.4s; }
+.menu-overlay.active .menu-item:nth-child(5) { transition-delay: 0.5s; }
+
+.menu-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  padding: 10px 28px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+.menu-link:hover {
+  color: #ff4d4d;
+  border-color: #ff2b2b;
+  background: rgba(255, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+  transform: scale(1.05);
+}
+.menu-footer-text {
+  position: absolute;
+  bottom: 30px;
+  font-family: "Bank Gothic", "BankGothic", "Copperplate", "Cinzel", sans-serif;
+  color: rgba(255, 255, 255, 0.22);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+    
     * {
       box-sizing: border-box;
     }
@@ -181,6 +285,21 @@
   </style>
 </head>
 <body>
+
+  <img src="logo.jpg" alt="Menu" class="top-logo" onclick="toggleMenu()">
+
+<div id="menu-overlay" class="menu-overlay">
+  <div class="menu-close-btn" onclick="toggleMenu()">&times;</div>
+  <ul class="menu-list">
+    <li class="menu-item"><a href="index.html" class="menu-link">トップページ</a></li>
+    <li class="menu-item"><a href="concept.html" class="menu-link">コンセプト</a></li>
+    <li class="menu-item"><a href="cast.html" class="menu-link">キャスト一覧</a></li>
+    <li class="menu-item"><a href="photogallery.html" class="menu-link">PHOTO GALLERY</a></li>
+    <li class="menu-item"><a href="https://forms.gle/1wk1t9uSmm9V5866" target="_blank" class="menu-link">投票</a></li>
+  </ul>
+  <div class="menu-footer-text">Omori Lab. est-2026</div>
+</div>
+  
   <div class="container">
 
     <!-- アナウンスエリア -->
@@ -381,5 +500,11 @@
     </div>
 
   </div>
+
+function toggleMenu() {
+  const overlay = document.getElementById('menu-overlay');
+  overlay.classList.toggle('active');
+}
+  
 </body>
 </html>
